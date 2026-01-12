@@ -4,7 +4,7 @@ import { GithubLink } from './GithubLink';
 export const App = (): string => {
   return `
     <header>
-      <h2>This is a simple vanilla TS seed</h2>
+      <h1>Counter</h1>
     </header>
     <main>
       ${Counter()}

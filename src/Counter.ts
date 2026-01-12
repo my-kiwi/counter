@@ -1,21 +1,43 @@
-const state = { count: 0 };
+const STORAGE_KEY = 'counter_value';
 
-const increaseCounter = (targetId: string) => {
-  const increase_counter_event = 'increase_counter_event';
+const getStoredCount = (): number => {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  return stored ? parseInt(stored, 10) : 0;
+};
 
-  window.addEventListener(increase_counter_event, () => {
-    state.count++;
-    document.getElementById(targetId)!.textContent = `${state.count}`;
-  });
-  return `window.dispatchEvent(new Event('${increase_counter_event}'))`;
+const saveCount = (count: number): void => {
+  localStorage.setItem(STORAGE_KEY, count.toString());
 };
 
 export const Counter = () => {
+  const count = getStoredCount();
   return `
-    <p>Click here to increment:</p>
-      <button onClick="${increaseCounter('counter')}">Increase</button>
-    <p>
-      Current count: <span id="counter">${state.count}</span>
-    </p>
+    <div class="counter-container">
+      <button class="counter-button decrease">−</button>
+      <div class="counter-display" id="counter-display">${count}</div>
+      <button class="counter-button increase">+</button>
+    </div>
   `;
+};
+
+export const initializeCounter = (): void => {
+  const decreaseBtn = document.querySelector('.counter-button.decrease') as HTMLButtonElement;
+  const increaseBtn = document.querySelector('.counter-button.increase') as HTMLButtonElement;
+  const display = document.getElementById('counter-display') as HTMLDivElement;
+
+  if (!decreaseBtn || !increaseBtn || !display) return;
+
+  let count = getStoredCount();
+
+  decreaseBtn.addEventListener('click', () => {
+    count--;
+    display.textContent = count.toString();
+    saveCount(count);
+  });
+
+  increaseBtn.addEventListener('click', () => {
+    count++;
+    display.textContent = count.toString();
+    saveCount(count);
+  });
 };
