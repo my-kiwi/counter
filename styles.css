@@ -69,9 +69,9 @@ h1 {
 }
 
 .counter-button {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  width: 30svw;
+  height: 30svh;
+  border-radius: 5px;
   border: none;
   font-size: 2.5rem;
   font-weight: bold;
@@ -117,12 +117,6 @@ h1 {
 
   .counter-container {
     gap: 1.5rem;
-  }
-
-  .counter-button {
-    width: 70px;
-    height: 70px;
-    font-size: 2rem;
   }
 
   .counter-display {
